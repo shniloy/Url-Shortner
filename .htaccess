@@ -1,0 +1,12 @@
+This file must be named .htaccess and placed in the same directory as your index.php and redirect.php files.
+Turn on the rewrite engine
+Options +FollowSymLinks
+RewriteEngine On
+
+Check if the requested file exists. If it does, do not apply the rewrite rule.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+Rewrite any request that doesn't correspond to a real file or directory
+to the redirect.php file, passing the last part of the URL as the 'code' parameter.
+RewriteRule ^([a-zA-Z0-9]+)$ redirect.php?code=$1 [L,QSA]
